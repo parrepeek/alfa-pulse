@@ -1,0 +1,9 @@
+{
+ "duplicate_id_rows": 12,
+ "revenue_below_100k": 11924,
+ "fts_country_missing_share": 0.902,
+ "self_payments": 27406,
+ "payments_winsorized_at": 842435309.9999924,
+ "payments_winsorized": 1354,
+ "intra_group_payments": 34356
+}
