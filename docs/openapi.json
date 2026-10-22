@@ -1,0 +1,782 @@
+{
+ "openapi": "3.1.0",
+ "info": {
+  "title": "Альфа Пульс API",
+  "description": "Персональная новостная аналитика для руководителей крупного бизнеса в Альфа-Бизнесе",
+  "version": "1.0.0"
+ },
+ "paths": {
+  "/": {
+   "get": {
+    "summary": "Index",
+    "operationId": "index__get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "text/html": {
+        "schema": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/health": {
+   "get": {
+    "summary": "Health",
+    "operationId": "health_api_health_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/users": {
+   "get": {
+    "summary": "List Users",
+    "operationId": "list_users_api_users_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/me": {
+   "get": {
+    "summary": "Me",
+    "operationId": "me_api_me_get",
+    "parameters": [
+     {
+      "name": "user",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "User"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/feed": {
+   "get": {
+    "summary": "Feed",
+    "operationId": "feed_api_feed_get",
+    "parameters": [
+     {
+      "name": "user",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "User"
+      }
+     },
+     {
+      "name": "group",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Group"
+      }
+     },
+     {
+      "name": "role",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Role"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/insight": {
+   "get": {
+    "summary": "Insight",
+    "operationId": "insight_api_insight_get",
+    "parameters": [
+     {
+      "name": "user",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "User"
+      }
+     },
+     {
+      "name": "group",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Group"
+      }
+     },
+     {
+      "name": "event",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Event"
+      }
+     },
+     {
+      "name": "role",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Role"
+      }
+     },
+     {
+      "name": "refresh",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "boolean",
+       "default": false,
+       "title": "Refresh"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/chat": {
+   "post": {
+    "summary": "Chat",
+    "operationId": "chat_api_chat_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ChatIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/feedback": {
+   "post": {
+    "summary": "Feedback",
+    "operationId": "feedback_api_feedback_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/FeedbackIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/trace/{trace_id}": {
+   "get": {
+    "summary": "Trace",
+    "operationId": "trace_api_trace__trace_id__get",
+    "parameters": [
+     {
+      "name": "trace_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Trace Id"
+      }
+     },
+     {
+      "name": "user",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "User"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/profile": {
+   "get": {
+    "summary": "Profile",
+    "operationId": "profile_api_profile_get",
+    "parameters": [
+     {
+      "name": "user",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "User"
+      }
+     },
+     {
+      "name": "group",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Group"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/profile/correction": {
+   "post": {
+    "summary": "Correction",
+    "operationId": "correction_api_profile_correction_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/CorrectionIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/news": {
+   "post": {
+    "summary": "Add News",
+    "description": "Проверка на ранее не показанных новостях: вставить любой текст и увидеть, кому и почему он важен.",
+    "operationId": "add_news_api_news_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/NewsIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/admin/ingest": {
+   "post": {
+    "summary": "Admin Ingest",
+    "operationId": "admin_ingest_api_admin_ingest_post",
+    "parameters": [
+     {
+      "name": "online",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "boolean",
+       "default": false,
+       "title": "Online"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/research/page/{doc_id}/{page}": {
+   "get": {
+    "summary": "Research Page",
+    "operationId": "research_page_api_research_page__doc_id___page__get",
+    "parameters": [
+     {
+      "name": "doc_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Doc Id"
+      }
+     },
+     {
+      "name": "page",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Page"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/research/docs": {
+   "get": {
+    "summary": "Research Docs",
+    "operationId": "research_docs_api_research_docs_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/quality-stats": {
+   "get": {
+    "summary": "Metrics",
+    "operationId": "metrics_api_quality_stats_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {}
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "components": {
+  "schemas": {
+   "ChatIn": {
+    "properties": {
+     "user": {
+      "type": "string",
+      "title": "User"
+     },
+     "group": {
+      "type": "string",
+      "title": "Group"
+     },
+     "event": {
+      "type": "string",
+      "title": "Event"
+     },
+     "role": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Role"
+     },
+     "question": {
+      "type": "string",
+      "title": "Question"
+     }
+    },
+    "type": "object",
+    "required": [
+     "user",
+     "group",
+     "event",
+     "question"
+    ],
+    "title": "ChatIn"
+   },
+   "CorrectionIn": {
+    "properties": {
+     "user": {
+      "type": "string",
+      "title": "User"
+     },
+     "group": {
+      "type": "string",
+      "title": "Group"
+     },
+     "key": {
+      "type": "string",
+      "title": "Key"
+     },
+     "value": {
+      "type": "string",
+      "title": "Value"
+     }
+    },
+    "type": "object",
+    "required": [
+     "user",
+     "group",
+     "key",
+     "value"
+    ],
+    "title": "CorrectionIn"
+   },
+   "FeedbackIn": {
+    "properties": {
+     "user": {
+      "type": "string",
+      "title": "User"
+     },
+     "group": {
+      "type": "string",
+      "title": "Group"
+     },
+     "event": {
+      "type": "string",
+      "title": "Event"
+     },
+     "kind": {
+      "type": "string",
+      "title": "Kind"
+     },
+     "comment": {
+      "type": "string",
+      "title": "Comment",
+      "default": ""
+     }
+    },
+    "type": "object",
+    "required": [
+     "user",
+     "group",
+     "event",
+     "kind"
+    ],
+    "title": "FeedbackIn"
+   },
+   "HTTPValidationError": {
+    "properties": {
+     "detail": {
+      "items": {
+       "$ref": "#/components/schemas/ValidationError"
+      },
+      "type": "array",
+      "title": "Detail"
+     }
+    },
+    "type": "object",
+    "title": "HTTPValidationError"
+   },
+   "NewsIn": {
+    "properties": {
+     "user": {
+      "type": "string",
+      "title": "User"
+     },
+     "title": {
+      "type": "string",
+      "title": "Title"
+     },
+     "text": {
+      "type": "string",
+      "title": "Text"
+     },
+     "source": {
+      "type": "string",
+      "title": "Source",
+      "default": "Добавлено пользователем"
+     },
+     "date": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Date"
+     }
+    },
+    "type": "object",
+    "required": [
+     "user",
+     "title",
+     "text"
+    ],
+    "title": "NewsIn"
+   },
+   "ValidationError": {
+    "properties": {
+     "loc": {
+      "items": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "integer"
+        }
+       ]
+      },
+      "type": "array",
+      "title": "Location"
+     },
+     "msg": {
+      "type": "string",
+      "title": "Message"
+     },
+     "type": {
+      "type": "string",
+      "title": "Error Type"
+     }
+    },
+    "type": "object",
+    "required": [
+     "loc",
+     "msg",
+     "type"
+    ],
+    "title": "ValidationError"
+   }
+  }
+ }
+}
