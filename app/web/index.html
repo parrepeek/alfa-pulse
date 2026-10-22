@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Альфа-Бизнес · Пульс бизнеса</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<!-- Вход: имитация SSO интернет-банка -->
+<section id="login" class="screen">
+  <div class="login-box">
+    <div class="logo big"><span class="a">А</span> Альфа-Бизнес</div>
+    <h1>Вход для тестирования</h1>
+    <p class="muted">Выберите тестового пользователя. Данные компаний обезличены (данные кейса), новости с пометкой «тест» синтетические.</p>
+    <div id="user-list" class="user-list"></div>
+  </div>
+</section>
+
+<section id="app" class="screen hidden">
+  <header class="top">
+    <div class="logo"><span class="a">А</span> Альфа-Бизнес</div>
+    <select id="group-select" title="Группа компаний"></select>
+    <div class="spacer"></div>
+    <span id="mode-badge" class="badge"></span>
+    <span id="user-badge" class="user-badge"></span>
+    <button class="ghost" id="logout">Выйти</button>
+  </header>
+  <div class="layout">
+    <nav class="side">
+      <a data-view="home" class="active">Главная</a>
+      <a data-view="pulse">Пульс бизнеса <span id="nav-count" class="count"></span></a>
+      <a data-view="profile">Профиль группы</a>
+      <a data-view="quality">Качество сервиса</a>
+      <a class="disabled">Счета и платежи</a>
+      <a class="disabled">Кредиты и гарантии</a>
+      <a class="disabled">ВЭД</a>
+    </nav>
+    <main>
+      <!-- Главный экран -->
+      <div id="view-home" class="view">
+        <h2>Добрый день!</h2>
+        <div class="grid3">
+          <div class="tile muted-tile"><div class="t-label">Расчетные счета</div><div class="t-value">●●● ●●● ₽</div><div class="t-sub">демо-экран интернет-банка</div></div>
+          <div class="tile muted-tile"><div class="t-label">Платежи на подпись</div><div class="t-value">—</div><div class="t-sub">демо-экран</div></div>
+          <div class="tile pulse-tile" id="pulse-widget">
+            <div class="t-label">Пульс бизнеса <span class="new" id="w-count"></span></div>
+            <div class="t-head" id="w-head">Загрузка…</div>
+            <div class="t-sub" id="w-why"></div>
+            <button class="primary" data-go="pulse">Открыть ленту</button>
+          </div>
+        </div>
+        <p class="muted small">Точка входа «Пульс бизнеса» постоянно доступна на главном экране и в меню слева.</p>
+      </div>
+
+      <!-- Лента -->
+      <div id="view-pulse" class="view hidden">
+        <div class="row between">
+          <div>
+            <h2>Пульс бизнеса</h2>
+            <p class="muted" id="feed-sub">События, которые важны именно для вашей группы компаний</p>
+          </div>
+          <div class="row gap">
+            <label class="muted small">Роль <select id="role-select"></select></label>
+            <button class="ghost" id="add-news-btn">Проверить свою новость</button>
+          </div>
+        </div>
+        <div id="feed" class="feed"></div>
+      </div>
+
+      <!-- Профиль -->
+      <div id="view-profile" class="view hidden">
+        <h2>Что сервис знает о группе</h2>
+        <p class="muted">Профиль рассчитан по данным банка: виды деятельности, продукты, ВЭД, граф платежей. Поправьте, если что-то не так: карточки пересчитаются.</p>
+        <div id="profile"></div>
+      </div>
+
+      <!-- Качество -->
+      <div id="view-quality" class="view hidden">
+        <h2>Качество сервиса</h2>
+        <p class="muted">Метрики персонализации, достоверности и работы AI-компонентов (для команды и экспертов банка).</p>
+        <div id="quality"></div>
+      </div>
+    </main>
+  </div>
+</section>
+
+<!-- Карточка события -->
+<div id="drawer" class="drawer hidden">
+  <div class="drawer-body">
+    <button class="close" id="drawer-close">×</button>
+    <div id="card"></div>
+  </div>
+</div>
+
+<!-- Добавить новость -->
+<div id="news-modal" class="modal hidden">
+  <div class="modal-body">
+    <button class="close" data-close="news-modal">×</button>
+    <h3>Проверить на новой новости</h3>
+    <p class="muted small">Вставьте любую новость: сервис извлечет событие и покажет, насколько и почему оно важно вашей группе.</p>
+    <input id="n-title" placeholder="Заголовок">
+    <textarea id="n-text" rows="6" placeholder="Текст новости"></textarea>
+    <button class="primary" id="n-submit">Проанализировать</button>
+    <div id="n-result"></div>
+  </div>
+</div>
+<script src="/static/app.js"></script>
+</body>
+</html>
